@@ -1,0 +1,75 @@
+<div *ngIf="service.loggedIn; else elseBlock">
+<form [formGroup]="dropdownsForm">
+    <mat-card>
+        <mat-form-field appearance="outline">
+            <mat-label>Select Language</mat-label>
+            <mat-select formControlName="dropdown" multiple="true" required>
+                <mat-option *ngFor="let drop of dropList" [value]="drop.id">
+                    {{drop.name}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="dropdownsForm.controls['dropdown'].invalid">Required</mat-error>
+        </mat-form-field>
+    </mat-card>
+</form>
+
+<br><br>
+
+<div style = "position: absolute;
+left: 20px;
+right: 20px;
+display: flex;
+align-items: center;
+background-color: #8fc2f5;
+color: white;
+font-weight: 600;">
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
+    
+        <ng-container matColumnDef="customerName">
+        <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="projectName">
+        <th mat-header-cell *matHeaderCellDef> Project Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="globalMaster">
+        <th mat-header-cell *matHeaderCellDef> Global Master </th>
+        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="indicator">
+        <th mat-header-cell *matHeaderCellDef> Indicator </th>
+        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="technicalPerson">
+        <th mat-header-cell *matHeaderCellDef> Technical Person </th>
+        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="forecastGenerated">
+        <th mat-header-cell *matHeaderCellDef> Forecast Generated </th>
+        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element"> 
+            <button mat-mini-fab color="white" (click)="showData()"><mat-icon>visibility</mat-icon></button>
+            <button mat-mini-fab color="white" (click)="editData()"><mat-icon>edit</mat-icon></button>
+            <button mat-mini-fab color="white" (click)="deleteData()"><mat-icon>delete</mat-icon></button>    
+        </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</div>
+</div>
+
+<ng-template #elseBlock><h4>You are not Logged IN</h4></ng-template>
